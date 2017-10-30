@@ -108,5 +108,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "dependencies": {
+    "immutable": "^3.8.2"
   }
 }
