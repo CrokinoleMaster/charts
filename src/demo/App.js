@@ -20,11 +20,11 @@ const data = Im.List([
 const App = () => (
     <div
         style={{
-            background: 'DARKSLATEBLUE'
+            background: 'lightgray'
         }}
     >
         <Chart width={800} height={300}>
-            <Scatter data={data} x="x" y="y" />
+            <Scatter data={data} x="x" y="y" size={4} />
         </Chart>
     </div>
 )

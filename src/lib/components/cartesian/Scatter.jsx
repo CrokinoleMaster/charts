@@ -15,8 +15,9 @@ class Scatter extends React.Component {
             // applies to <g> container
             parent: PropTypes.object
         }),
-        x: PropTypes.oneOf([PropTypes.string]),
-        y: PropTypes.oneOf([PropTypes.string]),
+        x: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
+        y: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
+        size: PropTypes.number,
         // symbol to use for point, circle by default
         symbol: PropTypes.string
     }
@@ -24,12 +25,15 @@ class Scatter extends React.Component {
     static defaultProps = {
         data: Im.List([]),
         style: {
-            data: {},
+            data: {
+                fill: 'black'
+            },
             labels: {},
             parent: {}
         },
         x: 'x',
         y: 'y',
+        size: 1,
         symbol: 'circle'
     }
 
@@ -39,7 +43,18 @@ class Scatter extends React.Component {
     }
 
     renderSymbols() {
-        const { data, x, y, symbol } = this.props
+        const { data, x, y, size, symbol, style } = this.props
+        return data.map(d => {
+            // add support for other symbols
+            return (
+                <circle
+                    x={d.getIn(x)}
+                    y={d.getIn(y)}
+                    r={size}
+                    style={style.data}
+                />
+            )
+        })
     }
 
     render() {
