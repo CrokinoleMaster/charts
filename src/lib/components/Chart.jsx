@@ -19,6 +19,15 @@ class Chart extends React.Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { children } = nextProps
+        const domains = this.getDomains(children)
+        this.setState({
+            xDomain: domains.x,
+            yDomain: domains.y
+        })
+    }
+
     getDomains(children) {
         const withData = children.filter
             ? children.filter(c => c.props.data)
@@ -38,11 +47,23 @@ class Chart extends React.Component {
         }
     }
 
+    addDomainToChildren(children) {
+        const { xDomain, yDomain } = this.state
+        return React.Children.map(children, child =>
+            React.cloneElement(child, {
+                domain: {
+                    xDomain,
+                    yDomain
+                }
+            })
+        )
+    }
+
     render() {
         const { width, height, children } = this.props
         return (
             <svg width={width} height={height}>
-                {children}
+                {this.addDomainToChildren(children)}
             </svg>
         )
     }

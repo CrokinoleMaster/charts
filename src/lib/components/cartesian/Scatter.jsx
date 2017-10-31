@@ -52,9 +52,6 @@ class Scatter extends React.Component {
     constructor(props) {
         super(props)
         this.renderSymbols = this.renderSymbols.bind(this)
-        this.state = {
-            domain: props.domain
-        }
     }
 
     renderSymbols() {
