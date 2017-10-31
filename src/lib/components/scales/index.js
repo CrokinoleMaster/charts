@@ -18,4 +18,22 @@ const getScaleFunc = (scale, domain, range) => {
     }
 }
 
-export { SCALE_TYPES, getDomain }
+// get scale obj from scale prop
+const getScaleObj = scale => {
+    let xScale
+    let yScale
+    if (typeof scale === 'string') {
+        xScale = scale
+        yScale = scale
+    } else {
+        xScale = scale.x
+        yScale = scale.y
+    }
+    const scales = {
+        x: xScale,
+        y: yScale
+    }
+    return scales
+}
+
+export { SCALE_TYPES, getDomain, getScaleObj, getScaleFunc }

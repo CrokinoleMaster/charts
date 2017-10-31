@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Im from 'immutable'
 
-import { SCALE_TYPES } from '../scales'
+import { SCALE_TYPES, getScaleFunc, getScaleObj } from '../scales'
 
 class Scatter extends React.Component {
     static propTypes = {
@@ -29,6 +29,10 @@ class Scatter extends React.Component {
             x: PropTypes.array,
             y: PropTypes.array
         }),
+        range: PropTypes.shape({
+            x: PropTypes.array,
+            y: PropTypes.array
+        }),
         // symbol to use for point, circle by default
         symbol: PropTypes.string
     }
@@ -52,6 +56,38 @@ class Scatter extends React.Component {
     constructor(props) {
         super(props)
         this.renderSymbols = this.renderSymbols.bind(this)
+    }
+
+    componentWillMount() {
+        const { scale, domain, range } = this.props
+        this.setScaleFuncs(getScaleObj(scale), domain, range)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (
+            this.props.scale !== nextProps.scale ||
+            this.props.domain !== nextProps.domain ||
+            this.props.range !== nextProps.range
+        ) {
+            this.setScaleFuncs(
+                getScaleObj(nextProps.scale),
+                nextProps.domain,
+                nextProps.range
+            )
+        }
+    }
+
+    setScaleFuncs(scales, domain, range) {
+        this.setState({
+            scaleFuncs: {
+                x: getScaleFunc(
+                    scales.x,
+                    nextProps.domain.x,
+                    nextProps.range.x
+                ),
+                y: getScaleFunc(scales.y, nextProps.domain.y, nextProps.range.y)
+            }
+        })
     }
 
     renderSymbols() {
