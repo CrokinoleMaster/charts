@@ -2,13 +2,9 @@ import * as d3Scale from 'd3-scale'
 
 const SCALE_TYPES = ['linear']
 
-const getDomain = (scale, data, accessor) => {
-    if (scale === 'linear') {
-        const sorted = data.map(d => d.getIn(accessor)).sort((a, b) => a - b)
-        return [sorted[0], sorted[sorted.length - 1]]
-    } else {
-        console.error('unknown scale type')
-    }
+const getDomain = values => {
+    const sorted = values.sort((a, b) => a - b)
+    return [sorted.first(), sorted.last()]
 }
 
 const getScaleFunc = (scale, domain, range) => {

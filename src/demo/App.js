@@ -9,11 +9,11 @@ const data = Im.List([
     }),
     Im.Map({
         x: 2,
-        y: 2
+        y: 4
     }),
     Im.Map({
         x: 3,
-        y: 3
+        y: 9
     })
 ])
 

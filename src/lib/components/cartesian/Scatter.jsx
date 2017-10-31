@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Im from 'immutable'
 
-import { SCALE_TYPES, getDomain } from '../scales'
+import { SCALE_TYPES } from '../scales'
 
 class Scatter extends React.Component {
     static propTypes = {
@@ -54,20 +54,6 @@ class Scatter extends React.Component {
         this.renderSymbols = this.renderSymbols.bind(this)
         this.state = {
             domain: props.domain
-        }
-    }
-
-    componentWillMount() {
-        const { data, scale, x, y } = this.props
-        const { domain } = this.state
-        if (!domain) {
-            this.setState({
-                domain: {
-                    x: getDomain(scale, data, x),
-                    y: getDomain(scale, data, y)
-                },
-                scaleFuncs: {}
-            })
         }
     }
 
