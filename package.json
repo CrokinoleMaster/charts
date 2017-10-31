@@ -110,6 +110,7 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "d3-scale": "^1.0.6",
     "immutable": "^3.8.2"
   }
 }

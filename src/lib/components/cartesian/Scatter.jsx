@@ -1,8 +1,8 @@
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import Im from 'immutable'
+
+import { SCALE_TYPES, getDomain } from '../scales'
 
 class Scatter extends React.Component {
     static propTypes = {
@@ -15,9 +15,20 @@ class Scatter extends React.Component {
             // applies to <g> container
             parent: PropTypes.object
         }),
-        x: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
-        y: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
+        x: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        y: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         size: PropTypes.number,
+        scale: PropTypes.oneOfType([
+            PropTypes.oneOf(SCALE_TYPES),
+            PropTypes.shape({
+                x: PropTypes.oneOf(SCALE_TYPES),
+                y: PropTypes.oneOf(SCALE_TYPES)
+            })
+        ]),
+        domain: PropTypes.shape({
+            x: PropTypes.array,
+            y: PropTypes.array
+        }),
         // symbol to use for point, circle by default
         symbol: PropTypes.string
     }
@@ -34,12 +45,30 @@ class Scatter extends React.Component {
         x: 'x',
         y: 'y',
         size: 1,
+        scale: 'linear',
         symbol: 'circle'
     }
 
     constructor(props) {
         super(props)
         this.renderSymbols = this.renderSymbols.bind(this)
+        this.state = {
+            domain: props.domain
+        }
+    }
+
+    componentWillMount() {
+        const { data, scale, x, y } = this.props
+        const { domain } = this.state
+        if (!domain) {
+            this.setState({
+                domain: {
+                    x: getDomain(scale, data, x),
+                    y: getDomain(scale, data, y)
+                },
+                scaleFuncs: {}
+            })
+        }
     }
 
     renderSymbols() {
@@ -48,6 +77,7 @@ class Scatter extends React.Component {
             // add support for other symbols
             return (
                 <circle
+                    key={d}
                     x={d.getIn(x)}
                     y={d.getIn(y)}
                     r={size}
