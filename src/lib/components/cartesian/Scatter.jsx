@@ -80,25 +80,22 @@ class Scatter extends React.Component {
     setScaleFuncs(scales, domain, range) {
         this.setState({
             scaleFuncs: {
-                x: getScaleFunc(
-                    scales.x,
-                    nextProps.domain.x,
-                    nextProps.range.x
-                ),
-                y: getScaleFunc(scales.y, nextProps.domain.y, nextProps.range.y)
+                x: getScaleFunc(scales.x, domain.x, range.x),
+                y: getScaleFunc(scales.y, domain.y, range.y.reverse())
             }
         })
     }
 
     renderSymbols() {
         const { data, x, y, size, symbol, style } = this.props
+        const { scaleFuncs } = this.state
         return data.map(d => {
             // add support for other symbols
             return (
                 <circle
                     key={d}
-                    x={d.getIn(x)}
-                    y={d.getIn(y)}
+                    cx={scaleFuncs.x(d.getIn(x))}
+                    cy={scaleFuncs.y(d.getIn(y))}
                     r={size}
                     style={style.data}
                 />
