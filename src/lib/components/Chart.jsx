@@ -7,7 +7,24 @@ import { getDomain } from './scales'
 class Chart extends React.Component {
     static propTypes = {
         width: PropTypes.number,
-        height: PropTypes.number
+        height: PropTypes.number,
+        padding: PropTypes.shape({
+            top: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+            right: PropTypes.number
+        })
+    }
+
+    static defaultProps = {
+        width: 300,
+        height: 300,
+        padding: {
+            top: 10,
+            bottom: 10,
+            left: 10,
+            right: 10
+        }
     }
 
     componentWillMount() {
@@ -48,7 +65,7 @@ class Chart extends React.Component {
     }
 
     addPropsToChildren(children) {
-        const { width, height } = this.props
+        const { width, height, padding } = this.props
         const { xDomain, yDomain } = this.state
         return React.Children.map(children, child =>
             React.cloneElement(child, {
@@ -57,8 +74,8 @@ class Chart extends React.Component {
                     y: yDomain
                 },
                 range: {
-                    x: [0, width],
-                    y: [0, height]
+                    x: [0 + padding.left, width - padding.right],
+                    y: [0 + padding.top, height - padding.bottom]
                 }
             })
         )

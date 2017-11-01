@@ -24,7 +24,17 @@ const App = () => (
         }}
     >
         <Chart width={800} height={300}>
-            <Scatter data={data} x="x" y="y" size={4} />
+            <Scatter
+                data={data}
+                x="x"
+                y="y"
+                size={5}
+                style={{
+                    data: {
+                        fill: 'darkred'
+                    }
+                }}
+            />
         </Chart>
     </div>
 )
