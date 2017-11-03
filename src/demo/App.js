@@ -1,6 +1,6 @@
 import React from 'react'
 import Im from 'immutable'
-import { Chart, Scatter } from '../lib'
+import { Chart, Scatter, Line } from '../lib'
 
 const data = Im.List([
     Im.Map({
@@ -32,6 +32,17 @@ const App = () => (
                 style={{
                     data: {
                         fill: 'darkred'
+                    }
+                }}
+            />
+            <Line
+                data={data}
+                x="x"
+                y="y"
+                size={5}
+                style={{
+                    data: {
+                        stroke: 'darkred'
                     }
                 }}
             />
