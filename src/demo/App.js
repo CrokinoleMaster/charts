@@ -24,17 +24,6 @@ const App = () => (
         }}
     >
         <Chart width={800} height={300}>
-            <Scatter
-                data={data}
-                x="x"
-                y="y"
-                size={5}
-                style={{
-                    data: {
-                        fill: 'darkred'
-                    }
-                }}
-            />
             <Line
                 data={data}
                 x="x"
@@ -43,6 +32,19 @@ const App = () => (
                 style={{
                     data: {
                         stroke: 'darkred'
+                    }
+                }}
+            />
+            <Scatter
+                data={data}
+                x="x"
+                y="y"
+                size={3}
+                style={{
+                    data: {
+                        fill: 'white',
+                        stroke: 'darkred',
+                        strokeWidth: 2
                     }
                 }}
             />
