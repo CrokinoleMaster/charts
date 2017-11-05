@@ -11,15 +11,15 @@ class CartesianComponent extends React.Component {
                 x: PropTypes.oneOf(SCALE_TYPES),
                 y: PropTypes.oneOf(SCALE_TYPES)
             })
-        ]).isRequired,
+        ]),
         domain: PropTypes.shape({
             x: PropTypes.array,
             y: PropTypes.array
-        }).isRequired,
+        }),
         range: PropTypes.shape({
             x: PropTypes.array,
             y: PropTypes.array
-        }).isRequired
+        })
     }
 
     componentWillMount() {
