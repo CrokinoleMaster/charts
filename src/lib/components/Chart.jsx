@@ -70,12 +70,18 @@ class Chart extends React.Component {
         return React.Children.map(children, child =>
             React.cloneElement(child, {
                 domain: {
-                    x: xDomain,
-                    y: yDomain
+                    x: (child.props.domain && child.props.domain.x) || xDomain,
+                    y: (child.props.domain && child.props.domain.y) || yDomain
                 },
                 range: {
-                    x: [0 + padding.left, width - padding.right],
-                    y: [0 + padding.top, height - padding.bottom]
+                    x: (child.props.range && child.props.range.x) || [
+                            0 + padding.left,
+                            width - padding.right
+                        ],
+                    y: (child.props.range && child.props.range.y) || [
+                            0 + padding.top,
+                            height - padding.bottom
+                        ]
                 }
             })
         )
