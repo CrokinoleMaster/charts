@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Im from 'immutable'
 
-import { SCALE_TYPES, getScaleFunc, getScaleObj } from '../scales'
+import CartesianComponent from './CartesianComponent'
 
-class Line extends React.Component {
-    static propTypes = {
+class Line extends CartesianComponent {
+    static propTypes = Object.assign({}, CartesianComponent.propTypes, {
         data: PropTypes.oneOf([PropTypes.instanceOf(Im.List)]),
         style: PropTypes.shape({
             // applies to point
@@ -16,24 +16,8 @@ class Line extends React.Component {
             parent: PropTypes.object
         }),
         x: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-        y: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-        size: PropTypes.number,
-        scale: PropTypes.oneOfType([
-            PropTypes.oneOf(SCALE_TYPES),
-            PropTypes.shape({
-                x: PropTypes.oneOf(SCALE_TYPES),
-                y: PropTypes.oneOf(SCALE_TYPES)
-            })
-        ]),
-        domain: PropTypes.shape({
-            x: PropTypes.array,
-            y: PropTypes.array
-        }),
-        range: PropTypes.shape({
-            x: PropTypes.array,
-            y: PropTypes.array
-        })
-    }
+        y: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+    })
 
     static defaultProps = {
         data: Im.List([]),
@@ -46,7 +30,6 @@ class Line extends React.Component {
         },
         x: 'x',
         y: 'y',
-        size: 1,
         scale: 'linear'
     }
 
@@ -55,36 +38,8 @@ class Line extends React.Component {
         this.renderLine = this.renderLine.bind(this)
     }
 
-    componentWillMount() {
-        const { scale, domain, range } = this.props
-        this.setScaleFuncs(getScaleObj(scale), domain, range)
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (
-            this.props.scale !== nextProps.scale ||
-            this.props.domain !== nextProps.domain ||
-            this.props.range !== nextProps.range
-        ) {
-            this.setScaleFuncs(
-                getScaleObj(nextProps.scale),
-                nextProps.domain,
-                nextProps.range
-            )
-        }
-    }
-
-    setScaleFuncs(scales, domain, range) {
-        this.setState({
-            scaleFuncs: {
-                x: getScaleFunc(scales.x, domain.x, range.x),
-                y: getScaleFunc(scales.y, domain.y, range.y.reverse())
-            }
-        })
-    }
-
     renderLine() {
-        const { data, x, y, size, symbol, style } = this.props
+        const { data, x, y, symbol, style } = this.props
         const { scaleFuncs } = this.state
         let pathStr = ''
         for (let i = 0; i < data.size; i++) {
