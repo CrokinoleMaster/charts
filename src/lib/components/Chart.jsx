@@ -82,7 +82,9 @@ class Chart extends React.Component {
                             0 + padding.top,
                             height - padding.bottom
                         ]
-                }
+                },
+                chartWidth: width,
+                chartHeight: height
             })
         )
     }

@@ -40,9 +40,36 @@ class Bar extends CartesianComponent {
         super(props)
     }
 
+    renderBars() {
+        const { data, x, y, style } = this.props
+        const { scaleFuncs } = this.state
+        return (
+            <g style={style.parent}>
+                {data.map((d, i) => {
+                    const xPos = scaleFuncs.x(d.getIn(x))
+                    const yPos =
+                        scaleFuncs.y(d.getIn(y)) + scaleFuncs.y.range()[1]
+                    const width = scaleFuncs.x.bandwidth()
+                    const height =
+                        scaleFuncs.y.range()[0] -
+                        scaleFuncs.y(d.getIn(y)) -
+                        scaleFuncs.y.range()[1]
+                    return (
+                        <rect
+                            x={xPos}
+                            y={yPos}
+                            width={width}
+                            height={height}
+                            key={i}
+                        />
+                    )
+                })}
+            </g>
+        )
+    }
+
     render() {
-        console.log(this.state.scaleFuncs)
-        return null
+        return this.renderBars()
     }
 }
 

@@ -19,7 +19,9 @@ class CartesianComponent extends React.Component {
         range: PropTypes.shape({
             x: PropTypes.array,
             y: PropTypes.array
-        })
+        }),
+        chartWidth: PropTypes.number,
+        chartHeight: PropTypes.number
     }
 
     componentWillMount() {

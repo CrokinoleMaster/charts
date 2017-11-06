@@ -20,14 +20,22 @@ const lineData = Im.List([
 const barData = Im.List([
     Im.Map({
         x: 'A',
-        y: 1
+        y: 0
     }),
     Im.Map({
         x: 'B',
-        y: 9
+        y: 1
     }),
     Im.Map({
         x: 'C',
+        y: 2
+    }),
+    Im.Map({
+        x: 'D',
+        y: 3
+    }),
+    Im.Map({
+        x: 'E',
         y: 4
     })
 ])

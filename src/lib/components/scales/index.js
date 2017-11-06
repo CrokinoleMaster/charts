@@ -7,7 +7,7 @@ const getDomain = values => {
         const sorted = values.sort((a, b) => a - b)
         return [sorted.first(), sorted.last()]
     } else {
-        return values
+        return values.toJS()
     }
 }
 
@@ -18,7 +18,10 @@ const getScaleFunc = (scale, domain, range) => {
             .domain(domain)
             .range(range)
     } else if (scale === 'band') {
-        return d3Scale.scaleBand(range)
+        return d3Scale
+            .scaleBand()
+            .domain(domain)
+            .range(range)
     } else {
         console.error('unknown scale type')
     }
