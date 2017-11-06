@@ -1,8 +1,8 @@
 import React from 'react'
 import Im from 'immutable'
-import { Chart, Scatter, Line } from '../lib'
+import { Chart, Scatter, Line, Bar } from '../lib'
 
-const data = Im.List([
+const lineData = Im.List([
     Im.Map({
         x: 1,
         y: 1
@@ -17,18 +17,33 @@ const data = Im.List([
     })
 ])
 
+const barData = Im.List([
+    Im.Map({
+        x: 'A',
+        y: 1
+    }),
+    Im.Map({
+        x: 'B',
+        y: 9
+    }),
+    Im.Map({
+        x: 'C',
+        y: 4
+    })
+])
+
 const App = () => (
     <div
         style={{
             background: 'lightgray'
         }}
     >
+        <div>Line</div>
         <Chart width={800} height={300}>
             <Line
-                data={data}
+                data={lineData}
                 x="x"
                 y="y"
-                size={5}
                 style={{
                     data: {
                         stroke: 'darkred'
@@ -36,7 +51,7 @@ const App = () => (
                 }}
             />
             <Scatter
-                data={data}
+                data={lineData}
                 x="x"
                 y="y"
                 size={3}
@@ -48,6 +63,10 @@ const App = () => (
                     }
                 }}
             />
+        </Chart>
+        <div>Bar</div>
+        <Chart width={800} height={300}>
+            <Bar data={barData} x="x" y="y" />
         </Chart>
     </div>
 )

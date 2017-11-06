@@ -3,8 +3,12 @@ import * as d3Scale from 'd3-scale'
 const SCALE_TYPES = ['linear']
 
 const getDomain = values => {
-    const sorted = values.sort((a, b) => a - b)
-    return [sorted.first(), sorted.last()]
+    if (values.every(n => typeof n === 'number')) {
+        const sorted = values.sort((a, b) => a - b)
+        return [sorted.first(), sorted.last()]
+    } else {
+        return values
+    }
 }
 
 const getScaleFunc = (scale, domain, range) => {
@@ -13,6 +17,8 @@ const getScaleFunc = (scale, domain, range) => {
             .scaleLinear()
             .domain(domain)
             .range(range)
+    } else if (scale === 'band') {
+        return d3Scale.scaleBand(range)
     } else {
         console.error('unknown scale type')
     }
