@@ -1,6 +1,6 @@
 import * as d3Scale from 'd3-scale'
 
-const SCALE_TYPES = ['linear']
+const SCALE_TYPES = ['linear', 'band']
 
 const getDomain = values => {
     if (values.every(n => typeof n === 'number')) {

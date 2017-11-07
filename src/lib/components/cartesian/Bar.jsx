@@ -62,7 +62,7 @@ class Bar extends CartesianComponent {
                             x={xPos}
                             y={yPos}
                             width={width}
-                            height={height}
+                            height={Math.max(height, 0)}
                             key={i}
                         />
                     )
