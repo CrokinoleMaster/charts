@@ -37,6 +37,10 @@ const barData = Im.List([
     Im.Map({
         x: 'E',
         y: 4
+    }),
+    Im.Map({
+        x: 'F',
+        y: 5
     })
 ])
 
