@@ -11,7 +11,7 @@ const getDomain = values => {
     }
 }
 
-const getScaleFunc = (scale, domain, range) => {
+const getScaleFunc = (scale, domain, range, barPadding) => {
     if (scale === 'linear') {
         return d3Scale
             .scaleLinear()
@@ -22,6 +22,7 @@ const getScaleFunc = (scale, domain, range) => {
             .scaleBand()
             .domain(domain)
             .range(range)
+            .padding(barPadding || 0)
     } else {
         console.error('unknown scale type')
     }

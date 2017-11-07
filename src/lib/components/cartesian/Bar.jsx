@@ -16,7 +16,9 @@ class Bar extends CartesianComponent {
             parent: PropTypes.object
         }),
         x: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-        y: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+        y: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+        // space between bars
+        barPadding: PropTypes.number
     })
 
     static defaultProps = {
@@ -33,7 +35,8 @@ class Bar extends CartesianComponent {
         scale: {
             x: 'band',
             y: 'linear'
-        }
+        },
+        barPadding: 0.1
     }
 
     constructor(props) {
