@@ -51,7 +51,7 @@ const App = () => (
         }}
     >
         <div>Line</div>
-        <Chart width={800} height={300}>
+        <Chart width={300} height={300}>
             <Line
                 data={lineData}
                 x="x"
@@ -77,7 +77,7 @@ const App = () => (
             />
         </Chart>
         <div>Bar</div>
-        <Chart width={800} height={300}>
+        <Chart width={300} height={300}>
             <Bar data={barData} x="x" y="y" />
         </Chart>
     </div>
