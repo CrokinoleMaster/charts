@@ -1,6 +1,6 @@
 import React from 'react'
 import Im from 'immutable'
-import { Chart, Scatter, Line, Bar } from '../lib'
+import { Axis, Chart, Scatter, Line, Bar } from '../lib'
 
 const lineData = Im.List([
     Im.Map({
@@ -78,6 +78,7 @@ const App = () => (
         </Chart>
         <div>Bar</div>
         <Chart width={300} height={300}>
+            <Axis />
             <Bar data={barData} x="x" y="y" />
         </Chart>
     </div>
